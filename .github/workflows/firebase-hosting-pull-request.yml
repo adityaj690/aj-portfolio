@@ -23,12 +23,10 @@ jobs:
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
 
-    - name: Set up Firebase Authentication
+    - name: Authenticate with Firebase
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_ADITYA_10FDB }}
-      run: |
-        echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_ADITYA_10FDB }}" > $HOME/.config/gcloud/application_default_credentials.json
-        cat $HOME/.config/gcloud/application_default_credentials.json
+      run: echo $GOOGLE_APPLICATION_CREDENTIALS > credentials.json
 
     - name: Deploy to Firebase Hosting
       env:
