@@ -10,7 +10,7 @@
 
 	<!-- Google Fonts -->
 	<link
-		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i"
 		rel="stylesheet">
 	<!-- Vendor CSS Files -->
 	<link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -22,21 +22,6 @@
 	<!-- Template Main CSS File -->
 	<link href="assets/css/style.css" rel="stylesheet">
 </head>
-<script>
-	// Get the success and error parameters from the URL
-	const successParam = new URLSearchParams(window.location.search).get('success');
-	const errorParam = new URLSearchParams(window.location.search).get('error');
-
-	// Display an alert for success
-	if (successParam) {
-		alert('Success: ' + decodeURIComponent(successParam));
-	}
-
-	// Display an alert for error
-	if (errorParam) {
-		alert('Error: ' + decodeURIComponent(errorParam));
-	}
-</script>
 
 <body>
 	<!-- ======= Mobile nav toggle button ======= -->
@@ -378,6 +363,41 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Hidden divs for project details -->
+			<div id="project1-details" class="project-details" style="display: none;">
+				<ol>
+					<li>Developed an innovative solution for Home Appliance automation.</li>
+					<li>Enabled convenient control of home appliances through a web application accessible on mobile or
+						laptop.</li>
+					<li>Implemented real-time monitoring and control of devices using IoT technology.</li>
+					<li>Designed user-friendly interfaces for seamless user experience.</li>
+					<li>Integrated voice control features using popular voice assistants like Alexa and Google
+						Assistant.</li>
+				</ol>
+			</div>
+
+			<div id="project2-details" class="project-details" style="display: none;">
+				<ol>
+					<li>Worked in project PM- Gati Shakti launched by Prime Minister Mr. Narendra Modi.</li>
+					<li>Worked with different ministries and departments of state government and implemented their
+						process of operation on web application using Spring Boot and GIS system.</li>
+					<li>Developed a system providing individual Ministries with user identifications (login IDs) for
+						periodic data updates, ensuring integrated planning, review, and monitoring.</li>
+					<li>Implemented OAuth security protocols to ensure secure access and data integrity across the
+						platform.</li>
+					<li>Designed and implemented OTP verification for user authentication, enhancing the security and
+						reliability of the system.</li>
+					<li>Developed the web application using Spring Boot technology, ensuring a robust and scalable
+						backend system.</li>
+				</ol>
+			</div>
+
+			<div id="project3-details" class="project-details" style="display: none;">
+				<ol>
+					<h3>Coming Soon...</h3>
+				</ol>
+			</div>
 		</section>
 
 		<!-- End Project Section -->
@@ -436,34 +456,29 @@
 							<div class="text-center"><button type="submit">Send Message</button></div>
 						</form>
 
+						<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+						<script type="text/javascript">
+							(function () {
+								emailjs.init("8maER9sqOHvll30Ho");
+							})();
+						</script>
 						<script>
 							document.getElementById('contactForm').addEventListener('submit', function (e) {
 								e.preventDefault();
 
-								const data = {
-									name: document.getElementById('name').value,
-									email: document.getElementById('email').value,
-									contactno: document.getElementById('contactno').value,
-									subject: document.getElementById('subject').value,
-									message: document.getElementById('message').value,
-								};
-
-								fetch('https://us-central1-portfolio-aditya-10fdb.cloudfunctions.net/sendEmail', {
-									method: 'POST',
-									headers: {
-										'Content-Type': 'application/json',
-									},
-									body: JSON.stringify(data),
-								})
-									.then(response => {
-										if (response.ok) {
-											document.querySelector('.sent-message').style.display = 'block';
-										} else {
-											document.querySelector('.error-message').style.display = 'block';
-										}
-									})
-									.catch(error => {
+								// Collect form data
+								const serviceID = 'service_5gk1bwq';
+								const templateID = 'template_9cv16hn';
+								const form = this;
+								// Send the email to yourself
+								emailjs.sendForm(serviceID, templateID, form)
+									.then(function () {
+										document.querySelector('.sent-message').style.display = 'block';
+										document.querySelector('.error-message').style.display = 'none';
+										form.reset();
+									}, function (error) {
 										document.querySelector('.error-message').style.display = 'block';
+										document.querySelector('.sent-message').style.display = 'none';
 									});
 							});
 						</script>
@@ -512,38 +527,17 @@
 			const modalContent = document.getElementById('modalContent');
 
 			document.getElementById('project1').addEventListener('click', function () {
-				modalContent.innerHTML = `
-        <ol>
-          <li>Developed an innovative solution for Home Appliance automation.</li>
-          <li>Enabled convenient control of home appliances through a web application accessible on mobile or laptop.</li>
-          <li>Implemented real-time monitoring and control of devices using IoT technology.</li>
-          <li>Designed user-friendly interfaces for seamless user experience.</li>
-          <li>Integrated voice control features using popular voice assistants like Alexa and Google Assistant.</li>
-        </ol>
-      `;
+				modalContent.innerHTML = document.getElementById('project1-details').innerHTML;
 				modal.style.display = 'block';
 			});
 
 			document.getElementById('project2').addEventListener('click', function () {
-				modalContent.innerHTML = `
-        <ol>
-          <li>Worked in project PM- Gati Shakti launched by Prime Minister Mr. Narendra Modi.</li>
-          <li>Worked with different ministries and departments of state government and implemented their process of operation on web application using Spring Boot and GIS system.</li>
-          <li>Developed a system providing individual Ministries with user identifications (login IDs) for periodic data updates, ensuring integrated planning, review, and monitoring.</li>
-          <li>Implemented OAuth security protocols to ensure secure access and data integrity across the platform.</li>
-          <li>Designed and implemented OTP verification for user authentication, enhancing the security and reliability of the system.</li>
-          <li>Developed the web application using Spring Boot technology, ensuring a robust and scalable backend system.</li>
-        </ol>
-      `;
+				modalContent.innerHTML = document.getElementById('project2-details').innerHTML;
 				modal.style.display = 'block';
 			});
 
 			document.getElementById('project3').addEventListener('click', function () {
-				modalContent.innerHTML = `
-        <ol>
-          <h3>Coming Soon...</h3>
-        </ol>
-      `;
+				modalContent.innerHTML = document.getElementById('project3-details').innerHTML;
 				modal.style.display = 'block';
 			});
 
